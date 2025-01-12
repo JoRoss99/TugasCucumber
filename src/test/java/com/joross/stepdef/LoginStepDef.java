@@ -1,0 +1,54 @@
+package com.joross.stepdef;
+
+import com.joross.page.HomePage;
+import com.joross.page.LoginPage;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.time.Duration;
+
+public class LoginStepDef {
+    LoginPage loginPage;
+    HomePage homePage;
+    static WebDriver driver;
+
+    @Given("user is on login page")
+    public void userIsOnLoginPage() {
+        driver = new ChromeDriver();
+
+        loginPage = new LoginPage(driver);
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        loginPage.goToLoginPage();
+    }
+
+    @And("user input username with {string}")
+    public void userInputUsernameWith(String username) {
+        loginPage.inputUsername(username);
+    }
+
+    @And("user input password with {string}")
+    public void userInputPasswordWith(String password) {
+        loginPage.inputPassword(password);
+    }
+
+    @When("user click login button")
+    public void userClickLoginButton() {
+        loginPage.clickLoginButton();
+    }
+
+    @And("user see error message {string}")
+    public void userSeeErrorMessage(String errorMessage) {
+        loginPage.validateErrorAppear(errorMessage);
+    }
+
+    @Then("user is on homepage")
+    public void userIsOnHomepage() {
+        homePage = new HomePage(driver);
+        homePage.validateOnHomePage();
+    }
+}
