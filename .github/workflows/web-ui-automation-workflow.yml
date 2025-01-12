@@ -28,11 +28,11 @@ jobs:
     
     # setup gradlew
     - name: Setup gradlew
-      run: chmod +x gradlew
+      run: chmod 777 Tugascucumber/gradlew
     
     # execute gradle command for running cucumber test
     - name: Execute Test
-      run: ./gradlew TugasCucumber
+      run: ./gradlew
     
     # archive test result
     - name: Archive Test Result
