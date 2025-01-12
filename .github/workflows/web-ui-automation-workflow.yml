@@ -40,6 +40,6 @@ jobs:
       if: always()
       with:
         name: Cucumber Report
-        path : ./Tugas Cucumber
+        path : src/test
     
     
