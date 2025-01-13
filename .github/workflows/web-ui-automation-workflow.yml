@@ -16,10 +16,10 @@ jobs:
     - uses: actions/checkout@v3
     
     # setup java
-    - name: Set up JDK 11
+    - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
-        java-version: '11'
+        java-version: '17'
         distribution: 'temurin'
     
     # install browser
@@ -32,7 +32,7 @@ jobs:
     
     # execute gradle command for running cucumber test
     - name: Execute Test
-      run: ./gradlew cucumber
+      run: ./gradlew test
     
     # archive test result
     - name: Archive Test Result
@@ -40,12 +40,6 @@ jobs:
       if: always()
       with:
         name: Cucumber Report
-        path: reports
+        path : reports
     
-    # deploy to github pages
-    - name: Deploy report to github pages
-      if: always()
-      uses: peaceiris/actions-gh-pages@v3.9.3
-      with:
-        personal_token: ${{ secrets.TOKEN }}
-        publish_dir: reports
+    
