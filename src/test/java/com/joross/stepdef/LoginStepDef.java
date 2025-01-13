@@ -8,6 +8,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.time.Duration;
 
@@ -17,9 +18,18 @@ public class LoginStepDef {
     static WebDriver driver;
 
     @Given("user is on login page")
-    public void userIsOnLoginPage() {
-        driver = new ChromeDriver();
 
+    public void userIsOnLoginPage() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments(
+                "--headless",
+                "--no-sendbox",
+                "--disable-dev-shm-usage",
+                "--remote-allow-origins=*",
+                "--disable-gpu",
+                "--disable-software-rasterizer"
+        );
+        driver = new ChromeDriver(options);
         loginPage = new LoginPage(driver);
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
